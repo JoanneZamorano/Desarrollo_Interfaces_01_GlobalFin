@@ -1,0 +1,173 @@
+/* GlobalFin Dashboard - Stylesheet */
+
+/* ===== COLORES CORPORATIVOS Y PALETA ===== */
+/* Colores base corporativos con contraste A11y */
+
+/* ===== ROOT / GLOBAL ===== */
+.root {
+    -fx-font-family: 'Segoe UI', 'San Francisco', Arial, sans-serif;
+    -fx-font-size: 12px;
+    -fx-text-fill: #2c3e50;
+    -fx-base: #ecf0f1;
+}
+
+/* ===== BUTTONS ===== */
+.button {
+    -fx-padding: 8 16;
+    -fx-border-radius: 4;
+    -fx-font-size: 12px;
+    -fx-font-weight: normal;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+.button:default {
+    -fx-border-color: #3498db;
+    -fx-background-color: #3498db;
+}
+
+.button:hover {
+    -fx-opacity: 0.9;
+}
+
+.button:pressed {
+    -fx-opacity: 0.8;
+}
+
+.button:disabled {
+    -fx-opacity: 0.5;
+    -fx-cursor: default;
+}
+
+/* ===== TEXT FIELDS ===== */
+.text-field {
+    -fx-padding: 8;
+    -fx-border-radius: 4;
+    -fx-border-color: #bdc3c7;
+    -fx-background-color: white;
+    -fx-text-fill: #2c3e50;
+    -fx-font-size: 12px;
+}
+
+.text-field:focused {
+    -fx-border-color: #3498db;
+    -fx-border-width: 2;
+}
+
+/* ===== COMBO BOX ===== */
+.combo-box {
+    -fx-padding: 8;
+    -fx-border-radius: 4;
+    -fx-border-color: #bdc3c7;
+    -fx-background-color: white;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: white;
+}
+
+/* ===== DATE PICKER ===== */
+.date-picker {
+    -fx-padding: 8;
+    -fx-border-radius: 4;
+    -fx-border-color: #bdc3c7;
+    -fx-background-color: white;
+}
+
+/* ===== TABLE VIEW ===== */
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #bdc3c7;
+    -fx-font-size: 11px;
+}
+
+.table-view .column-header {
+    -fx-background-color: #34495e;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8;
+}
+
+.table-view .table-row-cell {
+    -fx-padding: 4;
+    -fx-border-color: #ecf0f1;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+}
+
+.table-view .table-row-cell:hover {
+    -fx-background-color: #ecf0f1;
+}
+
+/* ===== LABELS ===== */
+.label {
+    -fx-text-fill: #2c3e50;
+    -fx-font-size: 12px;
+}
+
+/* ===== PROGRESS INDICATOR ===== */
+.progress-indicator {
+    -fx-progress-color: #16a085;
+}
+
+/* ===== SEPARATOR ===== */
+.separator {
+    -fx-padding: 4;
+}
+
+/* ===== HYPERLINK ===== */
+.hyperlink {
+    -fx-text-fill: #3498db;
+    -fx-padding: 4;
+}
+
+.hyperlink:visited {
+    -fx-text-fill: #9b59b6;
+}
+
+/* ===== DIALOG ===== */
+.dialog-pane {
+    -fx-background-color: #ecf0f1;
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color: #34495e;
+}
+
+.dialog-pane .content {
+    -fx-padding: 20;
+}
+
+/* ===== SCROLL BAR ===== */
+.scroll-bar {
+    -fx-background-color: #ecf0f1;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #95a5a6;
+    -fx-background-radius: 5;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #7f8c8d;
+}
+
+/* ===== ACCESSIBILITY FOCUS ===== */
+*:focused {
+    -fx-border-color: #f39c12;
+    -fx-border-width: 2;
+}
+
+/* Soporte para navegación por teclado */
+.button:focused {
+    -fx-border-color: #f39c12;
+    -fx-border-width: 2;
+}
+
+.text-field:focused {
+    -fx-border-color: #f39c12;
+    -fx-border-width: 2;
+}

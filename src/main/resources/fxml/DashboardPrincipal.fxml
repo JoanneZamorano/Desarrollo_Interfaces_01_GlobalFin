@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx" 
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.globalfin.controller.DashboardController"
+            fx:id="rootPane"
+            style="-fx-font-family: 'Segoe UI', 'San Francisco', Arial, sans-serif;">
+
+    <!-- TOP: Barra superior con título y controles globales -->
+    <top>
+        <VBox style="-fx-background-color: #2c3e50; -fx-padding: 12;">
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <Label text="GlobalFin Dashboard" style="-fx-text-fill: white; -fx-font-size: 18; -fx-font-weight: bold;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <TextField fx:id="searchField" promptText="🔍 Buscar..." style="-fx-font-size: 12; -fx-padding: 8;" prefWidth="200"/>
+                <Button fx:id="exportBtn" text="📤 Export" style="-fx-padding: 8 16; -fx-font-size: 12;"/>
+                <Button fx:id="addReportBtn" text="➕ Add Report" style="-fx-padding: 8 16; -fx-font-size: 12;"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- LEFT: Menú lateral de navegación -->
+    <left>
+        <VBox style="-fx-background-color: #34495e; -fx-min-width: 220; -fx-padding: 0;">
+            <!-- Logo/título sección -->
+            <VBox style="-fx-padding: 20; -fx-border-color: #2c3e50; -fx-border-width: 0 0 1 0;">
+                <Label text="Navegación" style="-fx-text-fill: #ecf0f1; -fx-font-size: 14; -fx-font-weight: bold;"/>
+            </VBox>
+
+            <!-- Botones de navegación (pestañas) -->
+            <VBox spacing="8" style="-fx-padding: 12;">
+                <Button fx:id="overviewBtn" text="📊 Overview" style="-fx-text-fill: white; -fx-min-width: 200; -fx-padding: 12; -fx-background-color: #16a085; -fx-font-size: 12;" onAction="#handleOverviewTab"/>
+                <Button fx:id="reportsBtn" text="📋 Detailed Reports" style="-fx-text-fill: white; -fx-min-width: 200; -fx-padding: 12; -fx-background-color: #3498db; -fx-font-size: 12;" onAction="#handleReportsTab"/>
+                <Button fx:id="performanceBtn" text="📈 Performance" style="-fx-text-fill: white; -fx-min-width: 200; -fx-padding: 12; -fx-background-color: #e74c3c; -fx-font-size: 12;" onAction="#handlePerformanceTab"/>
+            </VBox>
+
+            <!-- Separador -->
+            <Separator style="-fx-padding: 12 0;"/>
+
+            <!-- Filtros -->
+            <VBox spacing="8" style="-fx-padding: 12;">
+                <Label text="Filtros" style="-fx-text-fill: #ecf0f1; -fx-font-size: 12; -fx-font-weight: bold;"/>
+                <ComboBox fx:id="clientFilter" promptText="Cliente..." prefWidth="200" style="-fx-font-size: 11;"/>
+                <DatePicker fx:id="dateFilter" prefWidth="200" style="-fx-font-size: 11;"/>
+                <ComboBox fx:id="typeFilter" promptText="Tipo..." prefWidth="200" style="-fx-font-size: 11;"/>
+                <Button text="🔄 Reset" style="-fx-text-fill: white; -fx-padding: 8; -fx-background-color: #7f8c8d;">
+                    <onAction>#handleFilterReset</onAction>
+                </Button>
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <!-- Pie: Info y configuración -->
+            <VBox style="-fx-padding: 12; -fx-border-color: #2c3e50; -fx-border-width: 1 0 0 0;">
+                <Hyperlink text="⚙️ Settings" style="-fx-font-size: 11; -fx-text-fill: #3498db;"/>
+                <Hyperlink text="❓ Help" style="-fx-font-size: 11; -fx-text-fill: #3498db;"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- CENTER: Contenido principal con GridPane -->
+    <center>
+        <VBox style="-fx-padding: 12; -fx-background-color: #ecf0f1;">
+            <!-- Título de sección -->
+            <HBox spacing="10" style="-fx-padding: 0 0 12 0;">
+                <Label fx:id="sectionTitle" text="Overview" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                <ProgressIndicator fx:id="loadingIndicator" maxWidth="20" maxHeight="20" visible="false" managed="false"/>
+            </HBox>
+
+            <!-- Grid principal con tablas y métricas -->
+            <GridPane hgap="12" vgap="12" style="-fx-padding: 0;">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                </columnConstraints>
+
+                <!-- Tarjeta 1: Resumen rápido -->
+                <VBox style="-fx-border-color: #bdc3c7; -fx-border-radius: 5; -fx-background-color: white; -fx-padding: 15;" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <Label text="Total Reports" style="-fx-font-size: 12; -fx-text-fill: #7f8c8d;"/>
+                    <Label fx:id="totalReportsLabel" text="1,245" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #16a085;"/>
+                    <Label text="↑ 12% vs last month" style="-fx-font-size: 10; -fx-text-fill: #27ae60;"/>
+                </VBox>
+
+                <!-- Tarjeta 2: Revenue -->
+                <VBox style="-fx-border-color: #bdc3c7; -fx-border-radius: 5; -fx-background-color: white; -fx-padding: 15;" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <Label text="Revenue" style="-fx-font-size: 12; -fx-text-fill: #7f8c8d;"/>
+                    <Label fx:id="revenueLabel" text="$2.4M" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #3498db;"/>
+                    <Label text="↓ 5% vs target" style="-fx-font-size: 10; -fx-text-fill: #e74c3c;"/>
+                </VBox>
+
+                <!-- Tarjeta 3: Performance -->
+                <VBox style="-fx-border-color: #bdc3c7; -fx-border-radius: 5; -fx-background-color: white; -fx-padding: 15;" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                    <Label text="Completion Rate" style="-fx-font-size: 12; -fx-text-fill: #7f8c8d;"/>
+                    <Label fx:id="completionLabel" text="94.2%" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #f39c12;"/>
+                    <Label text="↑ 2% vs last month" style="-fx-font-size: 10; -fx-text-fill: #27ae60;"/>
+                </VBox>
+
+                <!-- Tabla principal: DataGrid -->
+                <AnchorPane GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="3" style="-fx-min-height: 300;">
+                    <TableView fx:id="dataTable" style="-fx-font-size: 11; -fx-padding: 0;" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+                        <columns>
+                            <TableColumn text="ID" prefWidth="60" resizable="false"/>
+                            <TableColumn text="Client" prefWidth="150" resizable="true"/>
+                            <TableColumn text="Date" prefWidth="100" resizable="true"/>
+                            <TableColumn text="Amount" prefWidth="100" resizable="true"/>
+                            <TableColumn text="Status" prefWidth="100" resizable="true"/>
+                            <TableColumn text="Actions" prefWidth="100" resizable="false"/>
+                        </columns>
+                        <placeholder>
+                            <Label text="No data available. Use filters or create a new report."/>
+                        </placeholder>
+                    </TableView>
+                </AnchorPane>
+            </GridPane>
+        </VBox>
+    </center>
+
+    <!-- BOTTOM: Barra de estado y paginación -->
+    <bottom>
+        <HBox spacing="15" style="-fx-background-color: #2c3e50; -fx-padding: 10; -fx-alignment: CENTER_LEFT;">
+            <Label fx:id="statusLabel" text="Ready" style="-fx-text-fill: #27ae60; -fx-font-size: 11;"/>
+            <Separator orientation="VERTICAL"/>
+            <Label text="Rows:" style="-fx-text-fill: white; -fx-font-size: 11;"/>
+            <ComboBox fx:id="rowsPerPageCombo" value="25" style="-fx-font-size: 11;" prefWidth="70">
+                <items>
+                    <String fx:value="10"/>
+                    <String fx:value="25"/>
+                    <String fx:value="50"/>
+                    <String fx:value="100"/>
+                </items>
+            </ComboBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="◀ Previous" style="-fx-padding: 6 12; -fx-font-size: 10;"/>
+            <Label text="Page 1 of 5" style="-fx-text-fill: white; -fx-font-size: 11;"/>
+            <Button text="Next ▶" style="-fx-padding: 6 12; -fx-font-size: 10;"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

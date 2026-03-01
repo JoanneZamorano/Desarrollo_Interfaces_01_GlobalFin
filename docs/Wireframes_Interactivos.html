@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlobalFin Dashboard - Wireframes Interactivos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            margin-bottom: 5px;
+        }
+
+        header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            border: 2px solid #bdc3c7;
+            background: white;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .tab-btn:hover {
+            border-color: #3498db;
+            color: #3498db;
+        }
+
+        .tab-btn.active {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+
+        .wireframe {
+            display: none;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+
+        .wireframe.active {
+            display: block;
+        }
+
+        /* WIREFRAME OVERVIEW */
+        .wf-overview {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            grid-template-rows: 60px 1fr 40px;
+            gap: 12px;
+            height: 800px;
+        }
+
+        .wf-topbar {
+            grid-column: 1 / -1;
+            background: #2c3e50;
+            color: white;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-radius: 4px;
+        }
+
+        .wf-logo {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .wf-search {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            background: #34495e;
+            color: white;
+        }
+
+        .wf-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .wf-btn {
+            padding: 8px 12px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .wf-sidebar {
+            background: #34495e;
+            color: white;
+            padding: 15px;
+            border-radius: 4px;
+            grid-row: 2;
+        }
+
+        .wf-nav-title {
+            font-weight: bold;
+            font-size: 12px;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #2c3e50;
+        }
+
+        .wf-nav-item {
+            padding: 10px;
+            margin: 5px 0;
+            background: #3498db;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s;
+        }
+
+        .wf-nav-item:hover {
+            background: #2980b9;
+        }
+
+        .wf-nav-item.active {
+            background: #16a085;
+        }
+
+        .wf-filters {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #2c3e50;
+            font-size: 12px;
+        }
+
+        .wf-filter-label {
+            font-weight: bold;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        .wf-select {
+            width: 100%;
+            padding: 6px;
+            margin-bottom: 8px;
+            border: none;
+            border-radius: 4px;
+            font-size: 11px;
+        }
+
+        .wf-content {
+            grid-column: 2;
+            grid-row: 2;
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-y: auto;
+        }
+
+        .wf-section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .wf-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .wf-metric-card {
+            background: white;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .wf-metric-label {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-bottom: 8px;
+        }
+
+        .wf-metric-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 4px;
+        }
+
+        .wf-metric-change {
+            font-size: 12px;
+            color: #27ae60;
+        }
+
+        .wf-table {
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .wf-table-header {
+            background: #34495e;
+            color: white;
+            display: grid;
+            grid-template-columns: 80px 150px 120px 100px 100px 80px;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 12px;
+            border-bottom: 2px solid #2c3e50;
+        }
+
+        .wf-table-row {
+            display: grid;
+            grid-template-columns: 80px 150px 120px 100px 100px 80px;
+            padding: 10px;
+            border-bottom: 1px solid #ecf0f1;
+            font-size: 12px;
+            align-items: center;
+        }
+
+        .wf-table-row:hover {
+            background: #f9f9f9;
+        }
+
+        .wf-footer {
+            grid-column: 1 / -1;
+            background: #2c3e50;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            border-radius: 4px;
+        }
+
+        .wf-pagination {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        /* ANNOTATIONS */
+        .annotations {
+            margin-top: 20px;
+            background: #e8f4f8;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            border-radius: 4px;
+        }
+
+        .annotations h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .annotation-list {
+            list-style: none;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #34495e;
+        }
+
+        .annotation-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .annotation-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #16a085;
+            font-weight: bold;
+        }
+
+        .info-box {
+            background: #fff3cd;
+            border-left: 4px solid #f39c12;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #856404;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .wf-metrics {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .wf-overview {
+                height: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .wf-overview {
+                grid-template-columns: 1fr;
+            }
+
+            .wf-sidebar {
+                grid-column: 1;
+                grid-row: 2;
+            }
+
+            .wf-content {
+                grid-column: 1;
+                grid-row: 3;
+            }
+
+            .wf-footer {
+                grid-column: 1;
+                grid-row: 4;
+            }
+
+            .wf-metrics {
+                grid-template-columns: 1fr;
+            }
+
+            .wf-table-header,
+            .wf-table-row {
+                grid-template-columns: repeat(3, 1fr);
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏢 GlobalFin Dashboard - Wireframes Interactivos</h1>
+            <p>Prototipos Low-Fi para validación de navegación, flujos y jerarquía de información</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('overview')">📊 Overview</button>
+            <button class="tab-btn" onclick="showTab('reports')">📋 Detailed Reports</button>
+            <button class="tab-btn" onclick="showTab('performance')">📈 Performance</button>
+            <button class="tab-btn" onclick="showTab('flow')">🗺️ User Flow</button>
+            <button class="tab-btn" onclick="showTab('accessibility')">♿ Accesibilidad</button>
+        </div>
+
+        <!-- OVERVIEW TAB -->
+        <div id="overview" class="wireframe active">
+            <div class="wf-overview">
+                <!-- Top Bar -->
+                <div class="wf-topbar">
+                    <div class="wf-logo">🏢 GLOBALFIN DASHBOARD</div>
+                    <input type="text" class="wf-search" placeholder="🔍 Search...">
+                    <div class="wf-buttons">
+                        <button class="wf-btn">📤 Export</button>
+                        <button class="wf-btn">➕ Add</button>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="wf-sidebar">
+                    <div class="wf-nav-title">NAVEGACIÓN</div>
+                    <div class="wf-nav-item active">📊 Overview</div>
+                    <div class="wf-nav-item">📋 Detailed Reports</div>
+                    <div class="wf-nav-item">📈 Performance</div>
+
+                    <div class="wf-filters">
+                        <div class="wf-filter-label">Cliente</div>
+                        <select class="wf-select">
+                            <option>All Clients</option>
+                            <option>Acme Corp</option>
+                            <option>Global Ind.</option>
+                        </select>
+
+                        <div class="wf-filter-label">Fecha</div>
+                        <input type="date" class="wf-select" value="2026-03-01">
+
+                        <div class="wf-filter-label">Tipo</div>
+                        <select class="wf-select">
+                            <option>All Types</option>
+                            <option>Monthly</option>
+                            <option>Quarterly</option>
+                        </select>
+
+                        <button class="wf-btn" style="width: 100%; margin-top: 10px;">🔄 Reset</button>
+                    </div>
+
+                    <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #2c3e50; font-size: 11px;">
+                        <div style="cursor: pointer;">⚙️ Settings</div>
+                        <div style="cursor: pointer; margin-top: 8px;">❓ Help</div>
+                    </div>
+                </div>
+
+                <!-- Content Area -->
+                <div class="wf-content">
+                    <div class="wf-section-title">Overview Dashboard</div>
+
+                    <div class="wf-metrics">
+                        <div class="wf-metric-card">
+                            <div class="wf-metric-label">Total Reports</div>
+                            <div class="wf-metric-value">1,245</div>
+                            <div class="wf-metric-change">↑ 12% vs month</div>
+                        </div>
+                        <div class="wf-metric-card" style="border-left-color: #2980b9;">
+                            <div class="wf-metric-label">Revenue</div>
+                            <div class="wf-metric-value">$2.4M</div>
+                            <div class="wf-metric-change" style="color: #e74c3c;">↓ 5% vs target</div>
+                        </div>
+                        <div class="wf-metric-card" style="border-left-color: #f39c12;">
+                            <div class="wf-metric-label">Completion Rate</div>
+                            <div class="wf-metric-value">94.2%</div>
+                            <div class="wf-metric-change">↑ 2% vs month</div>
+                        </div>
+                    </div>
+
+                    <div class="wf-table">
+                        <div class="wf-table-header">
+                            <div>ID</div>
+                            <div>Client</div>
+                            <div>Date</div>
+                            <div>Amount</div>
+                            <div>Status</div>
+                            <div>Action</div>
+                        </div>
+                        <div class="wf-table-row">
+                            <div>RPT001</div>
+                            <div>Acme Corp</div>
+                            <div>2025-03-01</div>
+                            <div>$10.5K</div>
+                            <div>✅ Completed</div>
+                            <div>[View]</div>
+                        </div>
+                        <div class="wf-table-row">
+                            <div>RPT002</div>
+                            <div>Global Ind.</div>
+                            <div>2025-02-28</div>
+                            <div>$11.0K</div>
+                            <div>⏳ Pending</div>
+                            <div>[View]</div>
+                        </div>
+                        <div class="wf-table-row">
+                            <div>RPT003</div>
+                            <div>Tech Sol.</div>
+                            <div>2025-02-27</div>
+                            <div>$11.5K</div>
+                            <div>⏸️ Hold</div>
+                            <div>[View]</div>
+                        </div>
+                        <div class="wf-table-row">
+                            <div>RPT004</div>
+                            <div>Finance+</div>
+                            <div>2025-02-26</div>
+                            <div>$12.0K</div>
+                            <div>🔄 Progress</div>
+                            <div>[View]</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="wf-footer">
+                    <div>✅ Ready to work</div>
+                    <div class="wf-pagination">
+                        <button class="wf-btn">◀ Prev</button>
+                        <span>Page 1 of 50</span>
+                        <button class="wf-btn">Next ▶</button>
+                        <select class="wf-select" style="width: 70px; padding: 4px;">
+                            <option>25</option>
+                            <option>50</option>
+                            <option>100</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="annotations">
+                <h3>📌 Características Clave</h3>
+                <ul class="annotation-list">
+                    <li><strong>BorderPane + GridPane:</strong> Estructura modular y escalable</li>
+                    <li><strong>Atajos Teclado:</strong> Ctrl+F (Search), Ctrl+N (Add), Ctrl+E (Export)</li>
+                    <li><strong>Navegación Tab:</strong> 3 secciones principales (Overview, Reports, Performance)</li>
+                    <li><strong>Filtros Dinámicos:</strong> Cliente, Fecha, Tipo con reset global</li>
+                    <li><strong>Virtualización:</strong> TableView renderiza solo filas visibles</li>
+                    <li><strong>Feedback Inmediato:</strong> Status bar + Paginación clara</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                💡 <strong>Validación:</strong> Este wireframe será mejorado tras feedback de 2-3 analistas financieros reales. Se validará el flujo de filtros, columnas de tabla críticas y acciones más frecuentes.
+            </div>
+        </div>
+
+        <!-- REPORTS TAB -->
+        <div id="reports" class="wireframe">
+            <h2 class="wf-section-title">📋 Detailed Reports - Wireframe</h2>
+
+            <div class="annotations">
+                <h3>Características de esta vista:</h3>
+                <ul class="annotation-list">
+                    <li><strong>Agrupación por Mes/Año:</strong> Accordion expandible para reducir scroll</li>
+                    <li><strong>Búsqueda Avanzada:</strong> Filtros complejos (rango de monto, período, etc.)</li>
+                    <li><strong>Acciones inline:</strong> [View], [Edit], [Delete] directamente en cada reporte</li>
+                    <li><strong>Load More:</strong> Carga progresiva para consultas con muchos resultados</li>
+                    <li><strong>Atajos aplicables:</strong> Ctrl+F (búsqueda), Ctrl+N (nuevo), Ctrl+E (exportar)</li>
+                </ul>
+            </div>
+
+            <div style="background: white; padding: 20px; border-radius: 4px; margin-top: 15px;">
+                <h3 style="margin-bottom: 15px;">Estructura de Datos:</h3>
+                <pre style="background: #f5f5f5; padding: 12px; border-radius: 4px; overflow-x: auto;">
+▼ February 2025 (15 reports)
+  ├─ Acme Corp - Monthly Report       [View] [Edit] [Delete]
+  ├─ Global Industries - Quarterly     [View] [Edit] [Delete]
+  └─ Tech Solutions - Annual Analysis  [View] [Edit] [Delete]
+
+▼ January 2025 (12 reports)
+  ├─ Finance Plus - Monthly            [View] [Edit] [Delete]
+  └─ Market Leaders - Quarterly        [View] [Edit] [Delete]
+
+▼ December 2024 (8 reports)
+  ├─ Acme Corp - Custom Analysis       [View] [Edit] [Delete]
+
+[⏬ Load More...]
+                </pre>
+            </div>
+        </div>
+
+        <!-- PERFORMANCE TAB -->
+        <div id="performance" class="wireframe">
+            <h2 class="wf-section-title">📈 Performance Metrics - Wireframe</h2>
+
+            <div class="annotations">
+                <h3>Características de esta vista:</h3>
+                <ul class="annotation-list">
+                    <li><strong>Gráficas interactivas:</strong> LineChart (tendencias), BarChart (comparativas)</li>
+                    <li><strong>Time Range Selector:</strong> 30/90/365 días o período custom</li>
+                    <li><strong>Segmentación:</strong> Filtrar por cliente, tipo de reporte, mes</li>
+                    <li><strong>Top Performers:</strong> Rankings de clientes por completion rate</li>
+                    <li><strong>Progress Bars:</strong> Visualización vs targets (verde OK, rojo alerta)</li>
+                    <li><strong>Auto-refresh:</strong> Toggle para actualización automática de datos</li>
+                </ul>
+            </div>
+
+            <div style="background: white; padding: 20px; border-radius: 4px; margin-top: 15px;">
+                <h3 style="margin-bottom: 15px;">Datos de Ejemplo:</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <h4>Completion Rate (últimos 30 días)</h4>
+                        <p style="font-size: 28px; font-weight: bold; color: #16a085; margin: 10px 0;">↗ 95%</p>
+        <p style="font-size: 12px; color: #7f8c8d;">Trend: 88% → 95% (+7% upward)</p>
+                    </div>
+                    <div>
+                        <h4>Revenue vs Target</h4>
+                        <p style="font-size: 28px; font-weight: bold; color: #e74c3c; margin: 10px 0;">94.2%</p>
+                        <p style="font-size: 12px; color: #7f8c8d;">Target: $2.5M | Actual: $2.4M</p>
+                    </div>
+                </div>
+                <h4 style="margin-top: 20px;">Top 5 Clients by Performance:</h4>
+                <table style="width: 100%; margin-top: 10px; font-size: 13px;">
+                    <tr style="border-bottom: 1px solid #ecf0f1;">
+                        <td><strong>1. Acme Corp</strong></td>
+                        <td>98% completion ✅</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ecf0f1;">
+                        <td><strong>2. Global Industries</strong></td>
+                        <td>95% completion ✅</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ecf0f1;">
+                        <td><strong>3. Tech Solutions</strong></td>
+                        <td>92% completion ✅</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ecf0f1;">
+                        <td><strong>4. Finance Plus</strong></td>
+                        <td>88% completion ⚠️</td>
+                    </tr>
+                    <tr>
+                        <td><strong>5. Market Leaders</strong></td>
+                        <td>85% completion ⚠️</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- FLOW TAB -->
+        <div id="flow" class="wireframe">
+            <h2 class="wf-section-title">🗺️ User Journey & Navigation Flow</h2>
+
+            <div style="background: white; padding: 20px; border-radius: 4px; margin-top: 15px;">
+                <pre style="background: #f5f5f5; padding: 15px; border-radius: 4px; font-size: 12px; line-height: 1.8;">
+ENTRADA A LA APLICACIÓN
+          │
+          ▼
+┌─────────────────────────────────────────┐
+│ DASHBOARD - OVERVIEW (Pantalla Principal)│
+│ - Visualiza KPIs rápidos                │
+│ - Ve últimos 4 reportes                 │
+│ - Filtra por cliente/fecha/tipo         │
+└────────┬───────┬───────────┬────────────┘
+         │       │           │
+    [Ctrl+R]  [Ctrl+E]  [Ctrl+N]
+      o Click   o Click   o Click
+         │       │           │
+         ▼       ▼           │
+    ┌──────┐ ┌────┐        │
+    │Reportes│Export      │
+    └──────┘ └────┘        │
+         │                  │
+    [Ctrl+P]              ▼
+      o Click         ┌──────────────┐
+         │            │Add Reporte   │
+         ▼            │(Modal Form)  │
+    ┌────────────┐    └──────┬───────┘
+    │Performance │           │
+    └────────────┘           ▼
+                         Guardar & Reload
+                             │
+                             ▼ (Volver a Overview)
+                         Tabla actualizada
+
+ATAJOS DE TECLADO GLOBALES:
+  Ctrl+F ──────→ Foco en campo de búsqueda
+  Ctrl+N ──────→ Abre diálogo "Add Report"
+  Ctrl+E ──────→ Inicia exportación a CSV/Excel/PDF
+  Ctrl+O ──────→ Ir a "Overview"
+  Ctrl+R ──────→ Ir a "Detailed Reports"
+  Ctrl+P ──────→ Ir a "Performance"
+  Tab ─────────→ Navegar entre elementos
+  Shift+Tab ───→ Retroceder en navegación
+                </pre>
+            </div>
+
+            <div class="annotations">
+                <h3>Flujos Clave Identificados:</h3>
+                <ul class="annotation-list">
+                    <li><strong>Flujo 1 - Exploración:</strong> Usuario abre app → ve Overview → navega a Reports → Performance</li>
+                    <li><strong>Flujo 2 - Búsqueda:</strong> Usuario filtra por cliente → busca specific report → click View para detalles</li>
+                    <li><strong>Flujo 3 - Creación:</strong> Ctrl+N → llena formulario → Guarder → vuelve a Overview con tabla actualizada</li>
+                    <li><strong>Flujo 4 - Exportación:</strong> Usuario selecciona rango → Ctrl+E → elige formato → descarga archivo</li>
+                    <li><strong>Flujo 5 - Análisis:</strong> Usuario va a Performance → selecciona período → visualiza gráficas → identifica tendencias</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ACCESSIBILITY TAB -->
+        <div id="accessibility" class="wireframe">
+            <h2 class="wf-section-title">♿ Accesibilidad (WCAG 2.1 - AA)</h2>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
+                <div style="background: white; padding: 15px; border-radius: 4px;">
+                    <h3 style="margin-bottom: 10px; color: #16a085;">✅ Implementado</h3>
+                    <ul class="annotation-list">
+                        <li><strong>Navegación por Teclado:</strong> Tab → elementos interactivos</li>
+                        <li><strong>Atajos Mnemotécnicos:</strong> Ctrl+F (Find), Ctrl+N (New), Ctrl+E (Export)</li>
+                        <li><strong>Foco Visible:</strong> Border naranja (#f39c12) en elementos</li>
+                        <li><strong>Colores Contrastados:</strong> WCAG AA 4.5:1 ratio</li>
+                        <li><strong>Labels Claros:</strong> Todos los botones y campos descritos</li>
+                        <li><strong>Indicadores no-solo-color:</strong> ✓ ✗ + colores</li>
+                    </ul>
+                </div>
+
+                <div style="background: white; padding: 15px; border-radius: 4px;">
+                    <h3 style="margin-bottom: 10px; color: #3498db;">📋 Por Validar</h3>
+                    <ul class="annotation-list">
+                        <li><strong>Zoom 200%:</strong> Verificar que UI no se rompe</li>
+                        <li><strong>Lector de Pantalla:</strong> Testear con JAWS/NVDA</li>
+                        <li><strong>Modo Oscuro:</strong> Considerar tema alterno</li>
+                        <li><strong>Tamaño Fuente:</strong> Permitir aumentar del lado usuario</li>
+                        <li><strong>Animaciones:</strong> Respetar prefers-reduced-motion</li>
+                        <li><strong>Navegación Completa:</strong> Sin ratón (teclado 100%)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="info-box" style="margin-top: 20px;">
+                🎯 <strong>Objetivo:</strong> Asegurar que analistas financieros con discapacidades visuales o motoras puedan operar el dashboard sin frustración usando solo teclado.
+            </div>
+
+            <div style="background: white; padding: 15px; border-radius: 4px; margin-top: 15px;">
+                <h3 style="margin-bottom: 10px;">Matriz de Accesibilidad (TAB Order)</h3>
+                <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
+                    <tr style="background: #34495e; color: white;">
+                        <th style="padding: 8px; text-align: left;">Orden</th>
+                        <th style="padding: 8px; text-align: left;">Elemento</th>
+                        <th style="padding: 8px; text-align: left;">Atajo</th>
+                        <th style="padding: 8px; text-align: left;">Acción</th>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ecf0f1;">
+                        <td style="padding: 8px;">1️⃣</td>
+                        <td style="padding: 8px;">Campo Búsqueda</td>
+                        <td style="padding: 8px;">Ctrl+F</td>
+                        <td style="padding: 8px;">Filtrar por texto</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ecf0f1;">
+                        <td style="padding: 8px;">2️⃣</td>
+                        <td style="padding: 8px;">Botón Export</td>
+                        <td style="padding: 8px;">Ctrl+E</td>
+                        <td style="padding: 8px;">Descargar datos</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ecf0f1;">
+                        <td style="padding: 8px;">3️⃣</td>
+                        <td style="padding: 8px;">Botón Add Report</td>
+                        <td style="padding: 8px;">Ctrl+N</td>
+                        <td style="padding: 8px;">Crear nuevo</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ecf0f1;">
+                        <td style="padding: 8px;">4️⃣</td>
+                        <td style="padding: 8px;">Tab Overview</td>
+                        <td style="padding: 8px;">Ctrl+O</td>
+                        <td style="padding: 8px;">Ver dashboard</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ecf0f1;">
+                        <td style="padding: 8px;">5️⃣</td>
+                        <td style="padding: 8px;">Tab Reports</td>
+                        <td style="padding: 8px;">Ctrl+R</td>
+                        <td style="padding: 8px;">Liste de reportes</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ecf0f1;">
+                        <td style="padding: 8px;">6️⃣</td>
+                        <td style="padding: 8px;">Tab Performance</td>
+                        <td style="padding: 8px;">Ctrl+P</td>
+                        <td style="padding: 8px;">Ver métricas</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ecf0f1;">
+                        <td style="padding: 8px;">7️⃣</td>
+                        <td style="padding: 8px;">Combobox Cliente</td>
+                        <td style="padding: 8px;">↓↑</td>
+                        <td style="padding: 8px;">Seleccionar cliente</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ecf0f1;">
+                        <td style="padding: 8px;">8️⃣</td>
+                        <td style="padding: 8px;">DatePicker</td>
+                        <td style="padding: 8px;">📅</td>
+                        <td style="padding: 8px;">Seleccionar fecha</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px;">9️⃣</td>
+                        <td style="padding: 8px;">Tabla de Reportes</td>
+                        <td style="padding: 8px;">↑↓←→</td>
+                        <td style="padding: 8px;">Navegar datos</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            // Ocultar todos los wireframes
+            const wireframes = document.querySelectorAll('.wireframe');
+            wireframes.forEach(wf => wf.classList.remove('active'));
+
+            // Desseleccionar todos los botones
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Mostrar wireframe seleccionado
+            document.getElementById(tabId).classList.add('active');
+
+            // Marcar botón como activo
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
